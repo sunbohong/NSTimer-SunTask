@@ -1,0 +1,6 @@
+framework module NSTimer_SunTask {
+  umbrella header "NSTimer-SunTask-umbrella.h"
+
+  export *
+  module * { export * }
+}

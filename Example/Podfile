@@ -1,0 +1,6 @@
+use_frameworks!
+target 'NSTimer-SunTask_Tests' do
+  pod 'NSTimer-SunTask', :path => '../'
+  
+  
+end

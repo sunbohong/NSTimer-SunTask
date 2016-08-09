@@ -1,0 +1,16 @@
+PODS:
+  - NSTimer-SunTask (0.1.0)
+
+DEPENDENCIES:
+  - NSTimer-SunTask (from `../`)
+
+EXTERNAL SOURCES:
+  NSTimer-SunTask:
+    :path: ../
+
+SPEC CHECKSUMS:
+  NSTimer-SunTask: 9e4a0124b8394abab85027aaacb663011038be63
+
+PODFILE CHECKSUM: f7f7fa13ffade4d341c245bc329e226c749ef21e
+
+COCOAPODS: 1.0.1
