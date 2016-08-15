@@ -1,7 +1,31 @@
 PODS:
+  - BlocksKit (2.2.5):
+    - BlocksKit/All (= 2.2.5)
+  - BlocksKit/All (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.5)
+  - BlocksKit/DynamicDelegate (2.2.5)
+  - BlocksKit/MessageUI (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - FBAllocationTracker (0.1.5)
+  - FBMemoryProfiler (0.1.3):
+    - FBAllocationTracker (~> 0.1)
+    - FBRetainCycleDetector (~> 0.1)
+  - FBRetainCycleDetector (0.1.2)
+  - Masonry (1.0.1)
   - NSTimer-SunTask (0.1.0)
 
 DEPENDENCIES:
+  - BlocksKit (~> 2.2.5)
+  - FBMemoryProfiler
+  - Masonry (~> 1.0.1)
   - NSTimer-SunTask (from `../`)
 
 EXTERNAL SOURCES:
@@ -9,8 +33,13 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  NSTimer-SunTask: 9e4a0124b8394abab85027aaacb663011038be63
+  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  FBAllocationTracker: dfdca3f71aceca6a85e95e3c6ec76a9785eba0f1
+  FBMemoryProfiler: 623fc5f8a61f7d02ec75c87e3b97c90f621d8b02
+  FBRetainCycleDetector: 45462f9ed1af0cd77224a4cc4e6dacaca47371b4
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  NSTimer-SunTask: 0562cd5d68ddb6ad418f5c69977cf985f94ab784
 
-PODFILE CHECKSUM: f7f7fa13ffade4d341c245bc329e226c749ef21e
+PODFILE CHECKSUM: dacbed1ee72cb3a548a9ae55f19037a41872d632
 
 COCOAPODS: 1.0.1

@@ -1,6 +1,22 @@
-use_frameworks!
-target 'NSTimer-SunTask_Tests' do
+platform :ios, '9.0'
+
+target 'SunTaskDemo' do
+
+  use_frameworks!
+
   pod 'NSTimer-SunTask', :path => '../'
-  
-  
+  pod 'Masonry', '~> 1.0.1'
+  pod 'BlocksKit', '~> 2.2.5'
+  pod 'FBMemoryProfiler'
+
+  target 'SunTaskDemoTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'SunTaskDemoUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
 end
