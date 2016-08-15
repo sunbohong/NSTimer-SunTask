@@ -16,6 +16,7 @@
 
 - (void)dealloc {
     NSLog(@"%@", self);
+    [super dealloc];
 }
 
 @end
@@ -41,8 +42,26 @@
 
 @implementation ViewController
 
+
+// static SunButton *subview;
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    /**
+     *  在 ARC 下面，因为 UITouch 会强引用 UIView。导致UIView延迟释放。通过查看 subview 的生命释放周期，可以证明该问题。
+     *  当前源文件已经改为 MRR 环境。所以将此行代码注释。
+     */
+
+
+    {
+//        subview = [[SunButton alloc] initWithFrame:CGRectInset(self.view.bounds, 100, 100)];
+//
+//        subview.backgroundColor = [UIColor redColor];
+//        [self.view addSubview:subview];
+    }
+
 
     // 双指单击
     [self.view bk_whenDoubleTapped:^(){
@@ -51,55 +70,122 @@
          {
              UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:[NSMutableArray array]];
 
-             stackView.axis = UILayoutConstraintAxisHorizontal;
-             stackView.spacing = 8;
+             stackView.axis = UILayoutConstraintAxisVertical;
+             stackView.spacing = 20;
              stackView.distribution = UIStackViewDistributionFill;
-             stackView.alignment = UIStackViewAlignmentFirstBaseline;
+             stackView.alignment = UIStackViewAlignmentCenter;
 
              self.stackView = stackView;
-         }
-
-         self.countLabel = [SunLabel new];
-         {
-             self.countLabel.text = @"0";
-             [self.stackView addArrangedSubview:self.countLabel];
-         }
-
-         SunButton *startButton = [SunButton buttonWithType:UIButtonTypeSystem];
-         {
-             [startButton setTitle:@"开始" forState:UIControlStateNormal];
-             [startButton bk_addEventHandler:^(id sender) {
-                  if(!self.timer) {
-                      self.timer = [NSTimer sun_scheduleAfter:0.3 repeatingEvery:1 action:^{
-                                        self.countLabel.text = [NSString stringWithFormat:@"%@", @([self.countLabel.text integerValue]+1)];
-                                    }];
-                  }
-              } forControlEvents:UIControlEventTouchUpInside];
-
-             [self.stackView addArrangedSubview:startButton];
-         }
-
-         SunButton *stopButton = [SunButton buttonWithType:UIButtonTypeSystem];
-         {
-             [stopButton setTitle:@"停止" forState:UIControlStateNormal];
-
-             [stopButton bk_addEventHandler:^(id sender) {
-                  [self.timer invalidate];
-                  self.timer = nil;
-                  [self.stackView removeFromSuperview];
-                  self.stackView = nil;
-                  self.countLabel = nil;
-              } forControlEvents:UIControlEventTouchUpInside];
-
-             [self.stackView addArrangedSubview:stopButton];
              [self.view addSubview:self.stackView];
+             [self.stackView mas_makeConstraints:^(MASConstraintMaker *make) {
+                  make.center.mas_equalTo(CGPointMake(0, 0));
+              }];
          }
 
-         [self.stackView mas_makeConstraints:^(MASConstraintMaker *make) {
-              make.center.mas_equalTo(CGPointMake(0, 0));
-          }];
+
+         // 计数器
+
+         [self.stackView addArrangedSubview:^(){
+              self.countLabel = [SunLabel new];
+              {
+                  self.countLabel.text = @"0";
+              }
+              return self.countLabel;
+          } ()];
+
+
+         // 开始&暂停
+
+         [self.stackView addArrangedSubview:^(){
+
+              UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:[NSMutableArray array]];
+              {
+                  stackView.axis = UILayoutConstraintAxisHorizontal;
+                  stackView.spacing = 20;
+                  stackView.distribution = UIStackViewDistributionFill;
+                  stackView.alignment = UIStackViewAlignmentCenter;
+              }
+              [stackView addArrangedSubview:^(){
+                   SunButton *button = [SunButton buttonWithType:UIButtonTypeSystem];
+                   [button setTitle:@"开始" forState:UIControlStateNormal];
+
+                   [button bk_addEventHandler:^(id sender) {
+                        if(!self.timer) {
+                            self.timer = [NSTimer sun_scheduleAfter:0.3 repeatingEvery:1 action:^{
+                                              self.countLabel.text = [NSString stringWithFormat:@"%@", @([self.countLabel.text integerValue]+1)];
+                                          }];
+                        }
+                    } forControlEvents:UIControlEventTouchUpInside];
+
+                   return button;
+               } ()];
+
+              [stackView addArrangedSubview:^(){
+                   SunButton *button = [SunButton buttonWithType:UIButtonTypeSystem];
+                   [button setTitle:@"停止" forState:UIControlStateNormal];
+
+                   [button bk_addEventHandler:^(id sender) {
+                        [self.timer invalidate];
+                        [self.timer release];
+
+                        [self.stackView removeFromSuperview];
+                        [self.stackView release];
+                        self.stackView = nil;
+
+                        [self.countLabel release];
+                        self.countLabel = nil;
+                    } forControlEvents:UIControlEventTouchUpInside];
+
+                   return button;
+               } ()];
+
+              return [stackView autorelease];
+          } ()];
+
+
+         // 暂停&恢复
+         [self.stackView addArrangedSubview:^(){
+
+              UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:[NSMutableArray array]];
+              {
+                  stackView.axis = UILayoutConstraintAxisHorizontal;
+                  stackView.spacing = 20;
+                  stackView.distribution = UIStackViewDistributionFill;
+                  stackView.alignment = UIStackViewAlignmentCenter;
+              }
+
+              [stackView addArrangedSubview:^(){
+                   SunButton *button = [SunButton buttonWithType:UIButtonTypeSystem];
+                   [button setTitle:@"暂停" forState:UIControlStateNormal];
+
+                   [button bk_addEventHandler:^(id sender) {
+                        [self.timer sun_pause];
+                    } forControlEvents:UIControlEventTouchUpInside];
+
+                   return button;
+               } ()];
+
+              [stackView addArrangedSubview:^(){
+                   SunButton *button = [SunButton buttonWithType:UIButtonTypeSystem];
+                   [button setTitle:@"恢复" forState:UIControlStateNormal];
+
+                   [button bk_addEventHandler:^(id sender) {
+                        [self.timer sun_resume];
+                    } forControlEvents:UIControlEventTouchUpInside];
+
+                   return button;
+               } ()];
+
+              return [stackView autorelease];
+          } ()];
      }];
 }
+
+//    - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//        [subview removeFromSuperview];
+//        [subview release];
+//        subview = nil;
+//    }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0BCEBF5A1D614E0300D23B1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCEBF591D614E0300D23B1C /* main.m */; };
 		0BCEBF5D1D614E0300D23B1C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCEBF5C1D614E0300D23B1C /* AppDelegate.m */; };
-		0BCEBF601D614E0300D23B1C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCEBF5F1D614E0300D23B1C /* ViewController.m */; };
+		0BCEBF601D614E0300D23B1C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCEBF5F1D614E0300D23B1C /* ViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0BCEBF631D614E0300D23B1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BCEBF611D614E0300D23B1C /* Main.storyboard */; };
 		0BCEBF651D614E0300D23B1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BCEBF641D614E0300D23B1C /* Assets.xcassets */; };
 		0BCEBF681D614E0300D23B1C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BCEBF661D614E0300D23B1C /* LaunchScreen.storyboard */; };

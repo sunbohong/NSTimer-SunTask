@@ -44,10 +44,32 @@
 - (void)sun_setInterval:(NSTimeInterval)interval;
 
 /**
+ *  更新任务
+ *
+ *  @param block 新的任务
+ */
+- (void)sun_setBlock:(dispatch_block_t)block;
+
+/**
  *  获取当前的时间间隔
  *
  *  @return 获取当前的时间间隔
  */
 - (NSTimeInterval)sun_timeInterval;
+
+/**
+ *  重新倒计时，在设定的间隔后，任务才会开始执行
+ */
+- (void)sun_resetCountDown;
+
+/**
+ *  暂停倒计时，
+ */
+- (void)sun_pause;
+
+/**
+ *  恢复计时，重新启动暂停的倒计时
+ */
+- (void)sun_resume;
 
 @end
