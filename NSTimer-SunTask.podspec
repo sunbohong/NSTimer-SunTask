@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'NSTimer-SunTask'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = '扩展NSTimer对定期任务的支持'
   s.description      = <<-DESC
   本分类用于扩展NSTimer对定期任务的支持
